@@ -1,0 +1,20 @@
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        druid:
+          driver: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.1.27:3306/blog?charset=utf8&useSSL=false&serverTimezone=GMT%2B8
+          username: root
+          password: root
+          #间隔多久进行一次检测，检测需要关闭的空闲连接
+          time-between-eviction-runs-millis: 60000
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  # 设置为true时，使用RowBounds分页会进行count查询 .默认=false
+  rowBoundsWithCount: true
