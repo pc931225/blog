@@ -77,10 +77,12 @@ public class BaseController {
         return null;
 
     }
+
     public void setUserId(HttpServletRequest request,Integer userId) {
         HttpSession session=request.getSession();
         session.setAttribute("userId", userId);
     }
+
     public Integer getManagerUserId(HttpServletRequest request) {
         HttpSession session=request.getSession();
         try {
@@ -91,10 +93,12 @@ public class BaseController {
         return null;
 
     }
+
     public void setManagerUserId(HttpServletRequest request,Integer userId) {
         HttpSession session=request.getSession();
         session.setAttribute("managerUserId", userId);
     }
+
     public void setUser(HttpServletRequest request,HashMap<String, Object> user) {
         HttpSession session=request.getSession();
         session.setAttribute("user", user);
