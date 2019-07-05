@@ -20,55 +20,39 @@ public class BaseController {
     final public static int CODE_ERROR=500;
     final public static int CODE_AUTH_ERROR=10000;
 
-    public String getjson(Object object,String msg){
-        JSONObject json= new JSONObject();
-        json.put("code", CODE_OK);
-        json.put("msg", msg);
-        json.put("data", object);
-        SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;
-        byte[] bytes = JSON.toJSONBytes(json,feature);
-        String str="";
-        try {
-            str= new String(bytes,"utf-8");
-        } catch (UnsupportedEncodingException e) {
-
-        }
-        return str;
+    public String getJson(Object object,String msg){
+        return getJson(CODE_OK,object,msg);
     }
-    public String getjson(int code,Object object,String msg){
+
+    public String getErrorJson(String msg){
+        return getJson(CODE_ERROR,"{}",msg);
+    }
+    public String getErrorJson(String msg,String data){
+        return getJson(CODE_ERROR,data,msg);
+    }
+
+    public String getErrorJson(){
+        return getJson(CODE_ERROR,"{}","操作失败");
+    }
+
+    public String getEmptyJson(String msg){
+        JSONObject json = new JSONObject();
+        json.put("code", CODE_LACK);
+        json.put("msg", msg);
+        return getJson(CODE_LACK,null,msg);
+    }
+
+    public String getJson(int code,Object object,String msg){
         JSONObject json= new JSONObject();
         json.put("code", code);
         json.put("msg", msg);
-        json.put("data", object);
-        SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;
-        byte[] bytes = JSON.toJSONBytes(json,feature);
-        String str="";
-        try {
-            str= new String(bytes,"utf-8");
-        } catch (UnsupportedEncodingException e) {
+        if(object!=null){
+            json.put("data", object);
         }
-        return str;
+        return setJson(json);
     }
-    public String getErrorjson(String msg){
-        JSONObject json= new JSONObject();
-        json.put("code", CODE_ERROR);
-        json.put("msg", msg);
-        json.put("data", "{}");
-        SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;
-        byte[] bytes = JSON.toJSONBytes(json,feature);
-        String str="";
-        try {
-            str= new String(bytes,"utf-8");
-        } catch (UnsupportedEncodingException e) {
 
-        }
-        return str;
-    }
-    public String getErrorjson(String msg,String data){
-        JSONObject json= new JSONObject();
-        json.put("code", CODE_ERROR);
-        json.put("msg", msg);
-        json.put("data", data);
+    private String setJson(JSONObject json){
         SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;
         byte[] bytes = JSON.toJSONBytes(json,feature);
         String str="";
@@ -80,29 +64,13 @@ public class BaseController {
         return str;
     }
 
-    public String getErrorjson(){
-        JSONObject json= new JSONObject();
-        json.put("code", CODE_ERROR);
-        json.put("msg", "操作失败");
-        json.put("data", "{}");
-        SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;
-        byte[] bytes = JSON.toJSONBytes(json,feature);
-        String str="";
-        try {
-            str= new String(bytes,"utf-8");
-        } catch (UnsupportedEncodingException e) {
-
-        }
-        return str;
-    }
     public Integer getUserId(HttpServletRequest request) {
         HttpSession session=request.getSession();
         if (session.getAttribute("userId")==null) {
             return null;
         }
         try {
-            Integer userid=Integer.parseInt(session.getAttribute("userId")+"");
-            return userid;
+            return Integer.parseInt(session.getAttribute("userId")+"");
         } catch (Exception e) {
 
         }
@@ -116,8 +84,7 @@ public class BaseController {
     public Integer getManagerUserId(HttpServletRequest request) {
         HttpSession session=request.getSession();
         try {
-            Integer userid=Integer.parseInt(session.getAttribute("managerUserId")+"");
-            return userid;
+            return Integer.parseInt(session.getAttribute("managerUserId")+"");
         } catch (Exception e) {
 
         }
@@ -132,7 +99,7 @@ public class BaseController {
         HttpSession session=request.getSession();
         session.setAttribute("user", user);
     }
-    @SuppressWarnings("unchecked")
+
     public HashMap<String, Object> getUser(HttpServletRequest request) {
         HttpSession session=request.getSession();
         if (session.getAttribute("user")==null) {
@@ -140,25 +107,18 @@ public class BaseController {
         }
         return (HashMap<String, Object>) session.getAttribute("user");
     }
+
     public void setManager(HttpServletRequest request,HashMap<String, Object> user) {
         HttpSession session=request.getSession();
         session.setAttribute("manager", user);
     }
-    @SuppressWarnings("unchecked")
+
     public HashMap<String, Object> getManager(HttpServletRequest request) {
         HttpSession session=request.getSession();
         if (session.getAttribute("manager")==null) {
             return null;
         }
         return (HashMap<String, Object>) session.getAttribute("manager");
-    }
-
-
-    public String getEmptyjson(String msg){
-        JSONObject json = new JSONObject();
-        json.put("code", CODE_LACK);
-        json.put("msg", msg);
-        return json.toString();
     }
 
     public Object getSessionAttribute(String attributeKeyName, HttpServletRequest request){
