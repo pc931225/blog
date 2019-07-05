@@ -10,15 +10,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 /**
+ *
  * @author pc
  * @Date 2019-07-05 15:41
  **/
 public class BaseController {
 
-    final public static int CODE_OK=200;
-    final public static int CODE_LACK=300;
-    final public static int CODE_ERROR=500;
-    final public static int CODE_AUTH_ERROR=10000;
+    final private static int CODE_OK=200;
+    final private static int CODE_LACK=300;
+    final private static int CODE_ERROR=500;
+    //final private static int CODE_AUTH_ERROR=10000;
 
     public String getJson(Object object,String msg){
         return getJson(CODE_OK,object,msg);
@@ -36,9 +37,6 @@ public class BaseController {
     }
 
     public String getEmptyJson(String msg){
-        JSONObject json = new JSONObject();
-        json.put("code", CODE_LACK);
-        json.put("msg", msg);
         return getJson(CODE_LACK,null,msg);
     }
 
