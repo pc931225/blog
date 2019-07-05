@@ -1,16 +1,16 @@
 package com.pc.blog.model;
 
-public class UserKey {
+public class User {
     private String host;
 
     private String user;
 
-    public UserKey(String host, String user) {
+    public User(String host, String user) {
         this.host = host;
         this.user = user;
     }
 
-    public UserKey() {
+    public User() {
         super();
     }
 
