@@ -140,4 +140,282 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="com.pc.blog.model.Article">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="tittle" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="classify" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="istop" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="essences" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pc.blog.model.Article">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="tittle" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="classify" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="istop" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="essences" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tittle, classify, istop, essences, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pc.blog.model.Article">
+    insert into article (id, tittle, classify, 
+      istop, essences, create_time, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{tittle,jdbcType=VARCHAR}, #{classify,jdbcType=INTEGER}, 
+      #{istop,jdbcType=INTEGER}, #{essences,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pc.blog.model.Article">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tittle != null">
+        tittle,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="istop != null">
+        istop,
+      </if>
+      <if test="essences != null">
+        essences,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tittle != null">
+        #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="essences != null">
+        #{essences,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pc.blog.model.Article">
+    update article
+    <set>
+      <if test="tittle != null">
+        tittle = #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        istop = #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="essences != null">
+        essences = #{essences,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pc.blog.model.Article">
+    update article
+    set tittle = #{tittle,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=INTEGER},
+      istop = #{istop,jdbcType=INTEGER},
+      essences = #{essences,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pc.blog.model.Article">
+    update article
+    set tittle = #{tittle,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=INTEGER},
+      istop = #{istop,jdbcType=INTEGER},
+      essences = #{essences,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pc.blog.model.Article">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="tittle" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="classify" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="istop" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="essences" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pc.blog.model.Article">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="tittle" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="classify" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="istop" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="essences" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tittle, classify, istop, essences, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pc.blog.model.Article">
+    insert into article (id, tittle, classify, 
+      istop, essences, create_time, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{tittle,jdbcType=VARCHAR}, #{classify,jdbcType=INTEGER}, 
+      #{istop,jdbcType=INTEGER}, #{essences,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pc.blog.model.Article">
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tittle != null">
+        tittle,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="istop != null">
+        istop,
+      </if>
+      <if test="essences != null">
+        essences,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tittle != null">
+        #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="essences != null">
+        #{essences,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pc.blog.model.Article">
+    update article
+    <set>
+      <if test="tittle != null">
+        tittle = #{tittle,jdbcType=VARCHAR},
+      </if>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        istop = #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="essences != null">
+        essences = #{essences,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pc.blog.model.Article">
+    update article
+    set tittle = #{tittle,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=INTEGER},
+      istop = #{istop,jdbcType=INTEGER},
+      essences = #{essences,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pc.blog.model.Article">
+    update article
+    set tittle = #{tittle,jdbcType=VARCHAR},
+      classify = #{classify,jdbcType=INTEGER},
+      istop = #{istop,jdbcType=INTEGER},
+      essences = #{essences,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -9,7 +9,7 @@ public class Article {
 
     private Integer classify;
 
-    private Integer istop;
+    private Integer isTop;
 
     private Integer essences;
 
@@ -17,20 +17,20 @@ public class Article {
 
     private String content;
 
-    public Article(Integer id, String tittle, Integer classify, Integer istop, Integer essences, Date createTime) {
+    public Article(Integer id, String tittle, Integer classify, Integer isTop, Integer essences, Date createTime) {
         this.id = id;
         this.tittle = tittle;
         this.classify = classify;
-        this.istop = istop;
+        this.isTop = isTop;
         this.essences = essences;
         this.createTime = createTime;
     }
 
-    public Article(Integer id, String tittle, Integer classify, Integer istop, Integer essences, Date createTime, String content) {
+    public Article(Integer id, String tittle, Integer classify, Integer isTop, Integer essences, Date createTime, String content) {
         this.id = id;
         this.tittle = tittle;
         this.classify = classify;
-        this.istop = istop;
+        this.isTop = isTop;
         this.essences = essences;
         this.createTime = createTime;
         this.content = content;
@@ -64,12 +64,12 @@ public class Article {
         this.classify = classify;
     }
 
-    public Integer getIstop() {
-        return istop;
+    public Integer getIsTop() {
+        return isTop;
     }
 
-    public void setIstop(Integer istop) {
-        this.istop = istop;
+    public void setIsTop(Integer isTop) {
+        this.isTop = isTop;
     }
 
     public Integer getEssences() {

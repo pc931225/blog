@@ -1,21 +1,20 @@
 package com.pc.blog.dao;
 
 import com.pc.blog.model.User;
-import com.pc.blog.model.UserKey;
-import com.pc.blog.model.UserWithBLOBs;
+import org.springframework.stereotype.Repository;
 
-public interface UserMapper {
-    int deleteByPrimaryKey(UserKey key);
+/**
+ *
+ * @author PC
+ */
+@Repository
+public interface UserMapper extends BaseMapper<User,Integer>{
 
-    int insert(UserWithBLOBs record);
-
-    int insertSelective(UserWithBLOBs record);
-
-    UserWithBLOBs selectByPrimaryKey(UserKey key);
-
-    int updateByPrimaryKeySelective(UserWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(UserWithBLOBs record);
-
-    int updateByPrimaryKey(User record);
+    /**
+     * 根据账号密码查询账号
+     * @param userName 账号
+     * @param pwd 密码
+     * @return User
+     */
+    User queryUser(String userName, String pwd);
 }

@@ -3,23 +3,26 @@ package com.pc.blog.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.pc.blog.util.CastUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
  *
  * @author pc
- * @Date 2019-07-05 15:41
  **/
 public class BaseController {
 
     final private static int CODE_OK=200;
     final private static int CODE_LACK=300;
     final private static int CODE_ERROR=500;
-    //final private static int CODE_AUTH_ERROR=10000;
+    final private static String MANGER="manager";
+    final private static String USER="user";
+    final private static String USER_ID="userId";
+    final private static String MANGER_USER_ID="userId";
 
     public String getJson(Object object,String msg){
         return getJson(CODE_OK,object,msg);
@@ -28,6 +31,7 @@ public class BaseController {
     public String getErrorJson(String msg){
         return getJson(CODE_ERROR,"{}",msg);
     }
+
     public String getErrorJson(String msg,String data){
         return getJson(CODE_ERROR,data,msg);
     }
@@ -40,7 +44,7 @@ public class BaseController {
         return getJson(CODE_LACK,null,msg);
     }
 
-    public String getJson(int code,Object object,String msg){
+    private String getJson(int code,Object object,String msg){
         JSONObject json= new JSONObject();
         json.put("code", code);
         json.put("msg", msg);
@@ -53,24 +57,18 @@ public class BaseController {
     private String setJson(JSONObject json){
         SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;
         byte[] bytes = JSON.toJSONBytes(json,feature);
-        String str="";
-        try {
-            str= new String(bytes,"utf-8");
-        } catch (UnsupportedEncodingException e) {
-
-        }
-        return str;
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     public Integer getUserId(HttpServletRequest request) {
         HttpSession session=request.getSession();
-        if (session.getAttribute("userId")==null) {
+        if (session.getAttribute(USER_ID)==null) {
             return null;
         }
         try {
-            return Integer.parseInt(session.getAttribute("userId")+"");
+            return Integer.parseInt(session.getAttribute(USER_ID)+"");
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
 
@@ -78,15 +76,15 @@ public class BaseController {
 
     public void setUserId(HttpServletRequest request,Integer userId) {
         HttpSession session=request.getSession();
-        session.setAttribute("userId", userId);
+        session.setAttribute(USER_ID, userId);
     }
 
     public Integer getManagerUserId(HttpServletRequest request) {
         HttpSession session=request.getSession();
         try {
-            return Integer.parseInt(session.getAttribute("managerUserId")+"");
+            return Integer.parseInt(session.getAttribute(MANGER_USER_ID)+"");
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
 
@@ -94,33 +92,33 @@ public class BaseController {
 
     public void setManagerUserId(HttpServletRequest request,Integer userId) {
         HttpSession session=request.getSession();
-        session.setAttribute("managerUserId", userId);
+        session.setAttribute(MANGER_USER_ID, userId);
     }
 
     public void setUser(HttpServletRequest request,HashMap<String, Object> user) {
         HttpSession session=request.getSession();
-        session.setAttribute("user", user);
+        session.setAttribute(USER, user);
     }
 
     public HashMap<String, Object> getUser(HttpServletRequest request) {
         HttpSession session=request.getSession();
-        if (session.getAttribute("user")==null) {
+        if (session.getAttribute(USER)==null) {
             return null;
         }
-        return (HashMap<String, Object>) session.getAttribute("user");
+        return CastUtil.cast( session.getAttribute(USER));
     }
 
     public void setManager(HttpServletRequest request,HashMap<String, Object> user) {
         HttpSession session=request.getSession();
-        session.setAttribute("manager", user);
+        session.setAttribute(MANGER, user);
     }
 
     public HashMap<String, Object> getManager(HttpServletRequest request) {
         HttpSession session=request.getSession();
-        if (session.getAttribute("manager")==null) {
+        if (session.getAttribute(MANGER)==null) {
             return null;
         }
-        return (HashMap<String, Object>) session.getAttribute("manager");
+        return CastUtil.cast(session.getAttribute(MANGER));
     }
 
     public Object getSessionAttribute(String attributeKeyName, HttpServletRequest request){
