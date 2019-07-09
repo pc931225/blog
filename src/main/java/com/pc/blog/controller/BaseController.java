@@ -24,11 +24,11 @@ public class BaseController {
     final private static String USER_ID="userId";
     final private static String MANGER_USER_ID="userId";
 
-    public String getJson(Object object,String msg){
+    String getJson(Object object,String msg){
         return getJson(CODE_OK,object,msg);
     }
 
-    public String getErrorJson(String msg){
+    String getErrorJson(String msg){
         return getJson(CODE_ERROR,"{}",msg);
     }
 

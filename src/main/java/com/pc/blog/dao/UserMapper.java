@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author PC
  */
-@Repository
 public interface UserMapper extends BaseMapper<User,Integer>{
 
     /**

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 /**
  *
  * @author pc
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("com.pc.blog.dao")
 public class DataSourceConfiguration {
+
     @Value("${jdbc.driver}")
     private String jdbcDriver;
     @Value("${jdbc.password}")
@@ -24,7 +27,7 @@ public class DataSourceConfiguration {
     private String jdbcUrl;
 
     @Bean(name = "dataSource")
-    public DruidDataSource createDataSource(){
+    public DataSource createDataSource(){
         DruidDataSource dataSource=new DruidDataSource();
         dataSource.setDriverClassName(jdbcDriver);
         dataSource.setUrl(jdbcUrl);
